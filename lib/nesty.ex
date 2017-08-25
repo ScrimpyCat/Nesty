@@ -11,7 +11,17 @@ defmodule Nesty do
       Get the value deeply nested at the specified key path.
 
       If a key does not exist, a default value will be returned (`nil` if
-      one is not provided).
+      one is not provided). A default value can be applied on a per key
+      and general basis. Per key defaults take precedence, whereas if
+      a per key default does not exist for the given key, it will then
+      fallback to using the general default value.
+
+      The general default value is by default `nil`, but can be set by
+      changing the third argument of the function.
+
+      Per key default values can be set by including a named tuple in
+      the key list `{ key, default }`, as opposed to the regular `key`
+      entry when no per key default is required.
 
       Example
       -------

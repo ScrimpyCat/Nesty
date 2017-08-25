@@ -4,10 +4,12 @@ defmodule Nesty.Mixfile do
     def project do
         [
             app: :nesty,
+            description: "Convenient helpers when dealing with nested keywords and maps.",
             version: "0.1.0",
             elixir: "~> 1.3",
             start_permanent: Mix.env == :prod,
-            deps: deps()
+            deps: deps(),
+            package: package()
         ]
     end
 
@@ -19,5 +21,13 @@ defmodule Nesty.Mixfile do
     # Run "mix help deps" to learn about dependencies.
     defp deps do
         [{ :ex_doc, "~> 0.16", only: :dev, runtime: false }]
+    end
+
+    defp package do
+        [
+            maintainers: ["Stefan Johnson"],
+            licenses: ["BSD 2-Clause"],
+            links: %{ "GitHub" => "https://github.com/ScrimpyCat/Nesty" }
+        ]
     end
 end

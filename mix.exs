@@ -5,7 +5,7 @@ defmodule Nesty.Mixfile do
         [
             app: :nesty,
             version: "0.1.0",
-            elixir: "~> 1.5",
+            elixir: "~> 1.3",
             start_permanent: Mix.env == :prod,
             deps: deps()
         ]
@@ -18,6 +18,6 @@ defmodule Nesty.Mixfile do
 
     # Run "mix help deps" to learn about dependencies.
     defp deps do
-        []
+        [{ :ex_doc, "~> 0.16", only: :dev, runtime: false }]
     end
 end

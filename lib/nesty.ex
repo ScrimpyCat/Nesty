@@ -21,29 +21,38 @@ defmodule Nesty do
         iex> Nesty.get([a: [b: %{ c: 55 }]], [:a, :d])
         nil
 
+        iex> Nesty.get([a: [b: %{ c: 55 }]], [:a, :d], 123)
+        123
+
         iex> Nesty.get([a: [b: %{ c: 55 }]], [:a, { :d, 1000 }, :c])
         1000
     """
-    @spec get(any, [key | { key, default }, ...]) :: value | default
-    def get(data, [{ _, default }|_]) when not is_map(data) and not is_list(data), do: default
-    def get(data, [_|_]) when not is_map(data) and not is_list(data), do: nil
-    def get(data, [{ key, default }]) do
+    @spec get(any, [key | { key, default }, ...], default) :: value | default
+    def get(data, keys, default \\ nil)
+    def get(data, [{ _, default }|_], _) when not is_map(data) and not is_list(data), do: default
+    def get(data, [_|_], default) when not is_map(data) and not is_list(data), do: default
+    def get(data, [{ key, default }], _) do
         case data[key] do
             nil -> default
             data -> data
         end
     end
-    def get(data, [key]), do: data[key]
-    def get(data, [{ key, default }|keys]) do
+    def get(data, [key], default) do
         case data[key] do
             nil -> default
-            data -> get(data, keys)
+            data -> data
         end
     end
-    def get(data, [key|keys]) do
+    def get(data, [{ key, default }|keys], default_value) do
         case data[key] do
-            nil -> nil
-            data -> get(data, keys)
+            nil -> default
+            data -> get(data, keys, default_value)
+        end
+    end
+    def get(data, [key|keys], default) do
+        case data[key] do
+            nil -> default
+            data -> get(data, keys, default)
         end
     end
 end

@@ -1,5 +1,5 @@
 # Nesty
-Convenient helpers for nested sets in elixir
+Convenient helpers when dealing with nested keywords and maps.
 
 
 Installation
